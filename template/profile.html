@@ -1,0 +1,71 @@
+
+{% extends 'base.html' %} {% load static %}
+<!--================Login Box Area =================-->
+{% block content %}
+    <section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Add Address</h1>
+                    <nav class="d-flex align-items-center">
+                        <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="single-product.html">Profile</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="checkout_area section_gap">
+        <div class="container">
+            
+                <div class="col-first">
+                    <nav class="d-flex align-items-center text-center" style="margin-left: 190px; margin-bottom:30px;">
+                        <a href="index.html" class="text-primary ">Add Address <span class="lnr lnr-arrow-right"></span></a>
+                        <a href="{% url 'address' %}" class="text-primary">&nbsp; Show Address</a>
+                    </nav>
+                </div>
+            <div class="billing_details">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-lg-8">
+                        <h3>Billing Details</h3>
+                        <form class="row contact_form" action="" method="post" novalidate="novalidate">
+                        <style>
+                        .nice-select .list{
+                            height:250px !important;
+                            overflow:scroll !important;
+                            
+                        }
+                        </style>
+                        {% if messages %}
+                        {% for message in messages %}
+                        <p{% if message.tags %} class="alert alert-{{ message.tags }} mb-3"{% endif %}>{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
+   
+                    {% csrf_token %}
+                    {% for fm in form %}
+                            <div class="col-md-12 form-group p_star">
+                                 {{fm}}<small class="text-danger">{{fm.errors|striptags}}</small>
+                            </div>
+                            {% endfor %}
+                            <div class="col-md-12 form-group">
+                                <button type="submit" value="submit" class="primary-btn btn-block rounded">Add Address</button>
+                                
+                            </div>
+                                {% if form.non_field_errors %}
+                                    {% for error in form.non_field_errors %}
+                                        <p class="alert alert-danger my-3">{{error}}</p>
+                                    {% endfor %}
+                                {% endif %}
+                        </form>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+
+
+    

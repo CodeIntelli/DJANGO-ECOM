@@ -1,0 +1,159 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<style>
+.cart_inner .table tbody tr td .product_count input{
+    width: 50px;
+    padding-left: 20px;
+}
+</style>
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Shopping Cart</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="category.html">Cart</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Banner Area -->
+
+<!--================Cart Area =================-->
+<section class="cart_area">
+    <div class="container">
+        <div class="cart_inner">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Product</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Remove Product</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for cart in cart %}
+                        <tr>
+                            <td style="width: 50%;">
+                                <div class="media">
+                                    <div class="d-flex">
+                                        <a href="{% url 'product-detail' cart.product.id %}" >
+
+                                            <img src={{cart.product.product_image.url}} width="100" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <a href="{% url 'product-detail' cart.product.id %}" ><p class="text-secondary" style="font-size: 16px;">{{cart.product.title}}</p></a>
+                                    </div>
+                                </div>
+                            </td>
+                            
+                            <td>
+                                
+                                <div class="my-3">
+                                    <a class="minus-cart btn" data-pid={{cart.product.id}} ><i class="fa fa-minus-square fa-lg" ></i></a>
+                                    
+                                     
+                                      <div class="product_count"> 
+                                      
+                                     <input type="text" name="qty" id="quantity" maxlength="12" title="Quantity:"  class="input-text qty" disabled="disabled" value="{{cart.quantity}}" />
+                                    
+                                    </div>
+                                    
+
+                                    <a class="plus-cart btn" data-pid={{cart.product.id}} ><i class="fa fa-plus-square fa-lg" 
+                                     ></i></a>
+                                </div>
+                            </td>
+                            <td>
+                                <h5>₹{{cart.product.discount_price}}</h5>
+                            </td>
+                            
+                            <td>
+                                <a class="btn btn-sm btn-danger text-white mr-3 remove-cart" 
+                                    data-pid={{cart.product.id}}><i class="fa fa-trash"></i></a>
+                            </td>
+                            
+                        </tr>
+                    
+                    {% endfor %}
+
+                        <tr>
+                            
+                            <td>
+
+                            </td>
+                            <td>
+                                <h5>Amount</h5>
+                            </td>
+                            <td>
+                                <h5>₹<span id="amount">{{amount}}</span></h5>
+                            </td>
+                            <td>
+
+                            </td>
+                            </tr><tr>
+                            
+                            <td>
+
+                            </td>
+                            <td>
+                                <h5>Shipping Amount</h5>
+                            </td>
+                            
+                            <td>
+                                <h5>₹{{shipping_amount}}</h5>
+                            </td>
+                            <td>
+
+                            </td>
+
+
+                            </tr>
+                            <tr>
+                            
+                            <td>
+
+                            </td>
+                            
+                            <td>
+                                <h5>Subtotal</h5>
+                            </td>
+                            <td>
+                                <h5>₹<span id="totalamount">{{total_amount}}</span></h5>
+                            </td>
+                            <td>
+
+                            </td>
+                        </tr>
+
+                        <tr class="out_button_area">
+                            <td>
+
+                            </td><td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+                                <div class="checkout_btn_inner d-flex align-items-center">
+                                    <a class="gray_btn" href="/">Continue Shopping</a>
+                                    <a class="primary-btn" href="{% url 'checkout' %}">Proceed to checkout</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>{% endblock content %}

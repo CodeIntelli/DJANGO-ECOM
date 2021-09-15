@@ -1,0 +1,51 @@
+<!-- Start Banner Area -->
+
+{% extends 'base.html' %} {% load static %}
+<!--================Login Box Area =================-->
+{% block content %}
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Address</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="{% url 'home' %}">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="{% url 'profile' %}">Profile <span class="lnr lnr-arrow-right"></span></a>
+                    <a href="{% url 'profile' %}">Show Address</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Banner Area -->
+
+<section class="section-top-border mt-5">
+    <div class="col-first">
+        <nav class="d-flex align-items-center text-center" style="margin-left: 190px; margin-bottom:30px;">
+            <a href="{% url 'profile' %}" class="text-primary ">Add Address <span class="lnr lnr-arrow-right"></span></a>
+            <a class="text-secondary">&nbsp; Show Address</a>
+        </nav>
+    </div>
+    <div class="container billing_details">
+        <h3>Address</h3>
+        <div class="row">
+        {% for data in data %}
+        <div class="col-md-4 ">
+                <div class="single-defination">
+                    <blockquote class="generic-blockquote rounded">
+                        <h5>Name: {{data.fname}} {{data.lname}}</h5>
+                        <h6>Contact: {{data.phone}}</h6>
+                        <h6>Address</h6>
+                        <p>{{data.addone}}, {{data.addtwo}}, {{data.city}}, {{data.state}}-{{data.zipcode}}</p>
+                        
+                    </blockquote>
+                </div>
+            </div>
+        
+        {% endfor %}
+            
+        </div>
+    </div>
+
+</section>
+{% endblock content %}

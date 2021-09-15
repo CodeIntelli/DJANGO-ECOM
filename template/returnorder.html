@@ -1,0 +1,81 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+	
+
+<style>
+	button{
+		border:none;
+	}
+	label{
+		float:left;
+	}
+	.nice-select .list{
+    	height:250px !important;
+    	overflow:scroll !important;
+                           
+    }
+	.nice-select{
+		width:100%;
+	}
+	.login_form_inner{
+		box-shadow: none;
+	}
+</style>
+	<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Return Order</h1>
+					<nav class="d-flex align-items-center">
+						<a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+						<a href="index.html">Order<span class="lnr lnr-arrow-right"></span></a>
+						<a href="category.html">Return Order</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+<section class="login_box_area " style="overflow:hidden !important">
+		
+			<div class="row" style="margin:40px 0px">
+				
+				<div class="col-lg-12" >
+				
+					<div class="login_form_inner">
+						<div class="generic-blockquote" style="width:50%;  margin-left: 30%;">
+						<h3>LogIn</h3>
+						<form method="post" action="/returnorderdata/{{order.id}}"  novalidate onsubmit="return validate()" id="myForm">
+							 {% if messages %}
+								{% for message in messages %}
+								<p{% if message.tags %} class="alert alert-{{ message.tags }} mb-3"{% endif %}>{{ message }}</p>
+								{% endfor %}
+							{% endif %}
+							
+							{% csrf_token %}
+     						{% for fm in form %}
+							<div class="col-md-12 form-group p_star">
+                                {{fm.label_tag}} {{fm}}<small class="text-danger">{{fm.errors|striptags}}</small>
+                            </div>
+   								{% endfor %}
+							
+							
+							
+							<div class="col-md-12 form-group">
+								<button type="submit" value="submit" class="primary-btn">Return Order</button>
+							</div>
+							{% if form.non_field_errors %}
+    							{% for error in form.non_field_errors %}
+									<p class="alert alert-danger my-3">{{error}}</p>
+								{% endfor %}
+							{% endif %}
+						</form>
+					</div>
+				</div>
+				</div>
+			</div>
+		
+	</section>
+
+
+{% endblock content %}

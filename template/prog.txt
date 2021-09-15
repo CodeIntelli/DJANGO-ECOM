@@ -1,0 +1,35 @@
+import java.util.*;
+import java.lang.*;
+
+public class Rextester
+{  
+    public static final int ASCII_0 = 48;
+    public static String getNumberString(String s)
+    {
+        int counter = 1;
+        for(int i = 0; i<s.length(); i++)
+        {
+            char g = Character.toLowerCase(s.charAt(i));
+            if(g =='a' || g =='e' || g =='i' || g =='o' || g =='u') 
+            {
+                StringBuilder sb = new StringBuilder(s);
+                sb.setCharAt(i, (char) (counter + ASCII_0));
+                s = sb.toString();
+                
+                StringBuilder input1 = new StringBuilder();
+                input1.append(s);
+                input1.reverse();
+               
+                counter = (counter + 1) % 10;
+            }
+        }
+        
+        
+      return s;
+    }
+
+    public static void main(String args[])
+    {
+        System.out.println( getNumberString("I love new cloths") );
+    }
+}

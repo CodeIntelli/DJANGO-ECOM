@@ -1,0 +1,131 @@
+
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<style>
+    .cncle-btn{
+        margin-left: 10px; border-radius: 10px; background: none; border:2px solid #ff6c00; padding: 0 10px;
+                            line-height: 40px; color:#ff6c00; margin-top:0px
+    }
+    .cncle-btn:hover{
+        color:#ff6d00 !important; 
+    }
+</style>
+    <!-- Start Banner Area -->
+    <section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Checkout</h1>
+                    <nav class="d-flex align-items-center">
+                        <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="single-product.html">Orders</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <!--================Checkout Area =================-->
+    <div class="container my-5">
+  <div class="row">
+    <h3 class="container my-5">Order Details</h3>
+    
+    
+    <div class="col-sm-11 offset-sm-1">
+      
+         {% for od in order_data %}
+      
+      <div class="row shadow mb-3 generic-blockquote">
+        <div class="col-sm-2">
+
+        <a href="{% url 'product-detail' od.product.id %}">
+          <img
+            src="{{od.product.product_image.url}}"
+            alt=""
+            class="img-fluid my-3"
+            height="150"
+            width="150"
+          />
+        </a>
+        </div>
+        <div class="col-sm-7 my-3">
+        <a href="{% url 'product-detail' od.product.id %}">
+          <strong style="font-size:16px; color:#ff6d00">{{od.product.title}} X {{od.quantity}}</strong>
+        </a>
+          
+          <p>Price: {{od.total_cost}}</p>
+          {% if od.status == "Cancled" %}
+          <p>Status: <span class="text-danger mt-3">Cancled</span></p>
+
+        {% elif od.status == "Return" %}
+          <p>Status: <span class="text-primary mt-3">Order Return Please Check Your Register Email for more info</span></p>
+
+          {% else %}
+          <p>Status: {{od.status}}</p>
+          {% endif %}
+        </div>
+        <div class="col-sm-3 fw-bold">   
+            
+          <div class="percentage">
+              {% if od.status == "Pending" %}
+								<div class="progress" style="margin-top:50px;height:10px;">
+									<div class="progress-bar color-3" role="progressbar" style="width: 5%; background:#ff6c00;"  aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+							</div>
+                            <p>{{od.status}}</p>
+                            <a href="{% url 'cancleorder' od.id %}" class="primary-btn cncle-btn" >Cancle Order</a>
+             {% endif %} 
+             {% if od.status == "Accepted" %}
+             <div class="progress" style="margin-top:50px;height:10px;">
+									<div class="progress-bar color-3" role="progressbar" style="width: 20%; background:#ff6c00;"  aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+							</div>
+                            <p>{{od.status}}</p>
+                            <a href="{% url 'cancleorder' od.id %}" class="primary-btn cncle-btn" >Cancle Order</a>
+             {% endif %}
+             
+             {% if od.status == "Packed" %}
+             <div class="progress" style="margin-top:50px;height:10px;">
+									<div class="progress-bar color-3" role="progressbar" style="width: 40%; background:#ff6c00;"  aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+							
+                            <p>{{od.status}}</p>
+                            <a href="{% url 'cancleorder' od.id %}" class="primary-btn cncle-btn" >Cancle Order</a>
+             {% endif %}
+
+             {% if od.status == "On The Way" %}
+             <div class="progress" style="margin-top:50px;height:10px;">
+									<div class="progress-bar color-3" role="progressbar" style="width: 60%; background:#ff6c00;"  aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+							</div>
+                            <p>{{od.status}}</p>
+                            <a href="{% url 'cancleorder' od.id %}" class="primary-btn cncle-btn" >Cancle Order</a>
+             {% endif %}
+
+             {% if od.status == "Delivered" %}
+             <div class="progress" style="margin-top:50px;height:10px;">
+									<div class="progress-bar color-3" role="progressbar" style="width: 100%; background:#ff6c00;"  aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+							</div>
+                            <p>{{od.status}}</p>
+                            <a href="{% url 'returnorder' od.id %}" class="primary-btn cncle-btn" >Return Order</a>
+             {% endif %}
+             
+</div>
+
+
+    
+      </div>
+      
+    </div>
+{% endfor %}
+
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+    
+    {% endblock content %}

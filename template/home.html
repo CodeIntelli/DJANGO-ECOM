@@ -1,0 +1,277 @@
+{% extends 'base.html' %} {% load static %} {% block mainbanner %} {% comment %}
+<!-- start banner Area -->
+{% endcomment %}
+<section class="banner-area">
+    <div class="container">
+        <div class="row fullscreen align-items-center justify-content-start">
+            <div class="col-lg-12">
+                <div class="active-banner-slider owl-carousel">
+                    {% comment %}
+                    <!-- single-slide -->
+                    {% endcomment %}
+                    <div class="row single-slide align-items-center d-flex">
+                        <div class="col-lg-5 col-md-6">
+                            <div class="banner-content">
+                                <h1>New Apple <br />IPHONE 13!</h1>
+                                <p>
+                                    The new iPhone models have narrower notches, tweaked cameras, and … not a whole lot else. Apple held its typical keynote-style event, which though virtual by necessity, was not short of superlatives and praise for every little detail.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="banner-img">
+                                <img class="img-fluid" src="{% static 'img/banner/banner-img.png'%}" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                    {% comment %}
+                    <!-- single-slide -->
+                    {% endcomment %}
+                    <div class="row single-slide">
+                        <div class="col-lg-5">
+                            <div class="banner-content">
+                                <h1>Nike New <br />Collection!</h1>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="banner-img">
+                                <img class="img-fluid" src="{% static 'img/banner/banner-img.png'%}" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% comment %}
+<!-- End banner Area -->
+{% endcomment %} {% endblock mainbanner %} {% block Features %}
+<section class="features-area section_gap">
+    <div class="container">
+        <div class="row features-inner">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-features">
+                    <div class="f-icon">
+                        <img src="{% static 'img/features/f-icon1.png' %}" alt="" />
+                    </div>
+                    <h6>Free Delivery</h6>
+                    <p>Free Shipping on all order</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-features">
+                    <div class="f-icon">
+                        <img src="{% static 'img/features/f-icon2.png' %}" alt="" />
+                    </div>
+                    <h6>Return Policy</h6>
+                    <p>Free Shipping on all order</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-features">
+                    <div class="f-icon">
+                        <img src="{% static 'img/features/f-icon3.png'%} " alt="" />
+                    </div>
+                    <h6>24/7 Support</h6>
+                    <p>Free Shipping on all order</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="single-features">
+                    <div class="f-icon">
+                        <img src="{% static 'img/features/f-icon4.png'%}" alt="" />
+                    </div>
+                    <h6>Secure Payment</h6>
+                    <p>Free Shipping on all order</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock Features %} {% block homeslider %}
+<!-- slider -->
+<section class="ml-5">
+    <div class="m-3">
+        <h3>Shoes</h3>
+        <hr />
+    </div>
+    <div class="owl-carousel" id="slider1">
+            <!-- single product -->
+            {% for sportshoes in sportshoes %}
+        <div class="row mt-3">
+            
+            <div class="col-lg-10 col-md-6">
+            <a href="{% url 'product-detail' sportshoes.id %}">
+                <div class="single-product">
+                    <img class="img-fluid" src="{{sportshoes.product_image.url}}" height="200" alt="" />
+                    <div class="product-details">
+                        <h6>{{sportshoes.title}}</h6>
+                        <div class="price">
+                            <h6>₹{{sportshoes.discount_price}}</h6>
+                            <h6 class=""><span class="l-through text-danger">₹{{sportshoes.selling_price}}</span> <span class="text-success">{{sportshoes.percentage}}% off</span></h6>
+                            
+                        </div>
+                        <div class="prd-bottom">
+                            <a href="" class="social-info">
+                                <span class="ti-bag"></span>
+                                <p class="hover-text">add to bag</p>
+                            </a>
+                            <a href="" class="social-info">
+                                <span class="lnr lnr-heart"></span>
+                                <p class="hover-text">Wishlist</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                </a>
+            </div>
+            
+            
+        </div>
+            {% endfor %}
+      
+    </div>
+</section>
+
+{% endblock homeslider %} {% block content %} {% comment %}
+<!-- start product Area -->
+{% endcomment %}
+<section class="owl-carousel active-product-area ">
+    {% comment %} show all product here like electronic,mobiles {% endcomment %}
+    <div class="single-product-slider">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 text-center">
+                    <div class="section-title">
+                        <h1>Latest Products</h1>
+                        <p>
+                           Buy Product with us and get more discount<br /> and some more benifits
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+               {% for latestproduct in latestproduct %}
+                 
+               
+               <div class="col-lg-3 col-md-6">
+                    <div class="single-product">
+                        <img class="img-fluid w-50" src="{{latestproduct.product_image.url}}" alt="" />
+                        <div class="product-details">
+                            <h6>{{latestproduct.title}}</h6>
+                            <div class="price">
+                               <h6>₹{{latestproduct.discount_price}}</h6>
+                            <h6 class=""><span class="l-through text-danger">₹{{latestproduct.selling_price}}</span> <span class="text-success">{{latestproduct.percentage}}% off</span></h6>
+                            </div>
+                            <div class="prd-bottom">
+                                <a href="" class="social-info">
+                                    <span class="ti-bag"></span>
+                                    <p class="hover-text">add to bag</p>
+                                </a>
+                                <a href="" class="social-info">
+                                    <span class="lnr lnr-heart"></span>
+                                    <p class="hover-text">Wishlist</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               {% endfor %}
+                
+                
+            </div>
+        </div>
+    </div>
+    {% comment %}
+    <!-- single product slide -->
+    {% endcomment %}
+    <div class="single-product-slider">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 text-center">
+                    <div class="section-title">
+                        <h1>Coming Products</h1>
+                        <p>
+                            We Are Adding new products soon.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+<section class="brand-area ">
+    <div class="container">
+        <div class="row">
+            <a class="col single-img" href="#">
+                <img class="img-fluid d-block mx-auto" src="{% static 'img/brand/1.png '%} " alt="" />
+            </a>
+            <a class="col single-img" href="#">
+                <img class="img-fluid d-block mx-auto" src="{% static 'img/brand/2.png'%} " alt="" />
+            </a>
+            <a class="col single-img" href="#">
+                <img class="img-fluid d-block mx-auto" src="{% static 'img/brand/3.png'%} " alt="" />
+            </a>
+            <a class="col single-img" href="#">
+                <img class="img-fluid d-block mx-auto" src="{% static 'img/brand/4.png '%} " alt="" />
+            </a>
+            <a class="col single-img" href="#">
+                <img class="img-fluid d-block mx-auto" src="{% static 'img/brand/5.png '%} " alt="" />
+            </a>
+        </div>
+    </div>
+</section>
+{% comment %}
+<!-- End brand Area -->
+{% endcomment %} {% comment %}
+<!-- Start related-product Area -->
+{% endcomment %}
+<section class="related-product-area section_gap_bottom">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 text-center">
+                <div class="section-title">
+                    <h1>Deals of the Week</h1>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    {% for dp in deal_product %}
+                
+                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                        <div class="single-related-product d-flex">
+                            <a href="{% url 'product-detail' dp.id %}"><img src="{{dp.product_image.url}}" width="120" alt="" /></a>
+                            <div class="desc">
+                                <a href="{% url 'product-detail' dp.id %}" class="title">{{dp.title}}</a>
+                                <div class="price">
+                                    <h6>₹{{dp.discount_price}}</h6>
+                            <h6 class=""><span class="l-through text-danger">₹{{dp.selling_price}}</span> <span class="text-success">{{dp.percentage}}% off</span></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                    
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+{% comment %}
+<!-- End related-product Area -->
+{% endcomment %} {% endblock content %}

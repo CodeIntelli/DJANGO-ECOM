@@ -1,0 +1,134 @@
+
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+    <!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Checkout</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="single-product.html">Checkout</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Banner Area -->
+
+<!--================Checkout Area =================-->
+<section class="checkout_area section_gap">
+    <div class="container">
+        <div class="billing_details">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h3>Order Summary</h3>
+                    <div class="col-sm-11">
+      {% for cd in cart_items %}
+      <div class="row shadow mb-3 generic-blockquote">
+        <div class="col-sm-4">
+          <img
+            src="{{cd.product.product_image.url}}"
+            alt=""
+            class="img-fluid my-3"
+            
+            width="200"
+          />
+        </div>
+        <div class="col-sm-7 my-3">
+          <strong style="font-size:18px; color:#ff6d00">{{cd.product.title}} X {{cd.quantity}}</strong>
+          
+          <p class="text-secondary">Price: {{cd.product.discount_price}}</p>
+          <p style="color:#000">Total Price: {{cd.total_cost}}</p>
+        </div>
+        
+      </div>
+      
+    </div>
+{% endfor %}
+                    <p class="">
+                        Total Cost :
+                        <span class="fw-bold">{{amount}} + {{shipping_amount}} = {{total_amount}}</span>
+                    </p>
+                    <p>Total Cost In $ :- <b>{{final_amount}}</b></p>
+                    <small>
+                        Term and Condition: Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, ullam saepe! Iure optio repellat dolor velit, minus rem. Facilis cumque neque numquam laboriosam, accusantium adipisci nisi nihil
+                        in et quis?
+                    </small>
+                    <p><b style="color: red;">In Any Case If You Have Cancle/Return Your Product Then After 48 hours you will get Your Refund </b></p>
+                </div>
+                <div class="col-lg-4">
+                    <div class="order_box" style="border-radius: 20px;">
+                        <h2>Select Your Address</h2>
+                        <form action="/paymentdone" id="myform">
+                        {% for ad in add %}
+                        <div class="payment_item">
+                            <div class="ml-4 mb-2">
+                                <input 
+                                    class="form-check-input"
+                                    type="radio"
+                                    value="{{ad.id}}"
+                                    name="custid"
+                                    id="custadd{{forloop.counter}}" checked />
+                                <label for="f-option5">Address {{forloop.counter}}</label>
+                                <div class="check"></div>
+                            </div>
+                            <p>
+                                <span style="font-weight: bold;">{{ad.fname}} {{ad.lname}}</span>
+                                <br />
+                                {{ad.addone}}, {{ad.addtwo}}, {{ad.city}}, 
+                                <strong>
+                                    <br />
+                                    {{ad.state}}-{{ad.zipcode}}
+                                </strong>
+                            </p>
+                        </div>
+                        {% endfor %}
+                        <div id="paypal-button-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=AQlFMwPDXtT2viBONXt4hVaFO4X1ZbpS5yBsMh8I0yQfz1QJMMmcGJdhGV37IIWGibgp0pcWviYoKG-1&currency=USD"></script>
+
+    <script>
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+
+          style: {
+                color:  'blue',
+                shape:  'pill',
+                label:  'pay',
+                height: 40
+            },
+
+            // Set up the transaction
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '{{final_amount}}'
+                        }
+                    }]
+                });
+            },
+
+            // Finalize the transaction
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    // Show a success message to the buyer
+
+                    alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                    document.getElementById("myform").submit();
+                });
+            }
+
+
+        }).render('#paypal-button-container');
+    </script>
+
+    {% endblock content %}

@@ -1,0 +1,85 @@
+<!--================Single Product Area =================-->
+{% extends 'base.html' %} {% load static %} {% block content %}
+<style>
+.s_product_text p{
+	padding-top:0 !important;
+	margin-bottom:20px !important;
+}
+.s_product_text{
+	margin-top:0 !important;
+}
+button{
+	border:0;
+}
+
+</style>
+<div class="product_image_area">
+    <div class="container">
+        <div class="row s_product_inner mb-5 mt-5">
+            <div class="col-lg-5">
+                <div class="single-prd-item">
+                    <img class="img-fluid" src="{{products.product_image.url}}" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 offset-lg-1">
+                <div class="s_product_text">
+					<h6 class="text-secondary" style="font-weight:bolder; text-transform:uppercase;">{{products.brand}} <span style="font-size:12px; font-weight:100; text-transform:capitalize;">({{products.subcategory}})</span> </h6>
+                    <h3>{{products.title}}</h3>
+                    <h2>₹{{products.discount_price}}</h2> <span style="color:red; text-decoration: line-through; margin-right:10px">₹{{products.selling_price}}</span> <span class="text-success" style="font-weight:bold;">{{products.percentage}}% off</span>
+                    <ul class="list">
+                        <li><a class="active" href="#"><span>Category</span> : {{products.subcategory}} </a></li>
+                        <li><a href="#"><span>Availibility</span> : In Stock</a></li>
+                    </ul>
+					{% if request.user.is_authenticated %}
+                   {% if item_already_in_cart %}
+        
+        			<a href="{% url 'showcart' %}" class="primary-btn">Go To Cart</a>
+        			{% else %}
+					<form action='/add-to-card' id="myForm" class="d-inline">
+					<input type="hidden" name="prod_id" value={{product.id}} id="prod_id" />
+					<div class="card_area d-flex align-items-center mt-5">
+                        <button class="primary-btn" href="#">Add to Cart</button>
+                        <button class="primary-btn" href="#" style="margin-left: 20px; border-radius: 10px; background: none; border:2px solid #ff6c00; color:#ff6c00; ">Buy Now</button>
+                        <a class="icon_btn" href="#"><i class="fa fa-heart" ></i></a>
+                    </div>
+					</form>
+					{% endif %}
+        
+					{% endif %}
+
+					{% if not request.user.is_authenticated %}
+					<form action='/accounts/login' id="myForm" class="d-inline">
+					<button class="btn btn-primary shadow px-5 py-2" type="submit">
+						Add To Cart
+					</button>
+					<button class="btn btn-danger shadow px-5 py-2 ms-4">Buy Now</button>
+					</form>
+					
+					{% endif %}
+					<div style="margin-bottom:30px;margin-top:40px;">
+					<div class="accordion" id="accordionExample">
+						<div class="card">
+							<div class="card-header" id="headingOne">
+							<h2 class="mb-0">
+								<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+								Product Details
+								</button>
+							</h2>
+							</div>
+
+							<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+							<div class="card-body" style="overflow-y: auto; height:400px;">
+								{{products.description | safe}}
+							</div>
+							</div>
+						</div>  
+						</div>
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--================End Single Product Area =================-->
+
+{% endblock content %}
